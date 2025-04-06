@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { JokeType, setJoke, setJokeType } from "../../state/joke/jokeSlice";
+import Error from "../errors/Error";
 
 const JokeForm = () => {
     const { isLoading, data } = useJokeCategories();
@@ -81,7 +82,7 @@ const JokeForm = () => {
                         />
                     )}
                 />
-                {errorState?.get("query") && <p className="text-red-500">{errorState.get("query")}</p>}
+                <Error errorMessage={errorState?.get("query") ?? null} />
             </div>
 
             <div className="w-1/3">
@@ -113,7 +114,7 @@ const JokeForm = () => {
                         </FormControl>
                     )}
                 />
-                {errorState?.get("category") && <p className="text-red-500">{errorState.get("category")}</p>}
+                <Error errorMessage={errorState?.get("category") ?? null} />
             </div>
         </form>
     );

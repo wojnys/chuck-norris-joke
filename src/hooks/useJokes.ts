@@ -1,15 +1,15 @@
 // hooks/usePosts.ts
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import axios from "axios";
 import { Joke } from "../types/general";
+import apiClient from "../api/apiClient";
 
 export const fetchRandomJoke = async (): Promise<Joke> => {
-    const { data } = await axios.get<Joke>("https://api.chucknorris.io/jokes/random");
+    const { data } = await apiClient.get<Joke>("/random");
     return data;
 };
 
 export const searchTextJoke = async (query: string): Promise<Joke> => {
-    const { data } = await axios.get(`https://api.chucknorris.io/jokes/search?query=${query}`);
+    const { data } = await apiClient.get(`/search?query=${query}`);
     if (data.result.length === 0) {
         return {} as Joke;
     }
@@ -17,17 +17,19 @@ export const searchTextJoke = async (query: string): Promise<Joke> => {
 };
 
 const fetchCategories = async (): Promise<string[]> => {
-    const { data } = await axios.get<string[]>("https://api.chucknorris.io/jokes/categories");
+    const { data } = await apiClient.get<string[]>("/categories");
     return data;
 };
 
 export const searchCateogryJoke = async (category: string): Promise<Joke> => {
-    const { data } = await axios.get(`https://api.chucknorris.io/jokes/random?category=${category}`);
+    const { data } = await apiClient.get(`/random?category=${category}`);
     if (data.result?.length === 0) {
         return {} as Joke;
     }
     return data;
 };
+
+///
 
 export const useRandomJoke = (): UseQueryResult<Joke, Error> => {
     return useQuery<Joke>({
