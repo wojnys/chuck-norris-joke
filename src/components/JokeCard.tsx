@@ -2,11 +2,27 @@ import { Badge, Card } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
+import { setJoke } from "../state/joke/jokeSlice";
 
 const JokeCard = () => {
     const joke = useSelector((state: RootState) => state.joke);
+    const dispatch = useDispatch();
+
+    if (Object.keys(joke.joke).length === 0) {
+        dispatch(
+            setJoke({
+                categories: [],
+                created_at: "",
+                icon_url: "",
+                id: "",
+                updated_at: "",
+                url: "",
+                value: "NO JOKES FOUND",
+            })
+        );
+    }
 
     return (
         <Card className="flex justify-center w-full flex-col items-start p-4">

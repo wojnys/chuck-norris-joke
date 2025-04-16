@@ -28,7 +28,9 @@ const MainPage = () => {
         <Container className="w-full flex flex-col justify-center h-[100vh]">
             <JokeForm />
 
-            <div className="w-full flex justify-center py-4">{joke?.value ? <JokeCard /> : <p>No jokes found</p>}</div>
+            <div className="w-full flex justify-center py-4">
+                <JokeCard />
+            </div>
 
             <Button variant="contained" className="mt-4" onClick={() => refetch()}>
                 Get random joke
